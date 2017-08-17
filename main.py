@@ -27,6 +27,9 @@ threshold = 30
 #generally keep the rot angle 180
 imageRotAngle = 180       
 
+#same as q factor in raspistill
+imageQuality = 30
+
 #testWidth is the width of the image which will be analyzed during the motion
 testWidth = 800
 
@@ -61,6 +64,7 @@ def main():
 	picam1.setImageParam(imageWidth,imageHeight,imageFrames)
 	picam1.setMotionParam(sensitivity,threshold)
 	picam1.setImageRotation(imageRotAngle)
+	picam1.setImageQuality(imageQuality)
 	picam1.printParam()
 	#creating an instance for threaded motion class PiVideoStream()
 	#Note: the class PiVideoStream() can be found from package imutils under picamera link: 

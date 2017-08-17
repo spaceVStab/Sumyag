@@ -38,6 +38,11 @@ class picamConfig(object):
 		self.rotAngle = angle
 		return
 
+	def setImageQuality(self, quality = 50):
+		#50 -> 100 to 120 KB
+		self.quality = quality
+		return
+
 	#returning the test parameters for other operations
 	def getTestParam(self):
 		return(self.testWidth, self.testHeight, self.testFrames)
@@ -67,7 +72,7 @@ class picamConfig(object):
 			camera.framerate = self.imageFrames
 			camera.rotation = self.rotAngle
 			outputs = ["image_%d.jpeg"%i for i in range(no_Images)]
-			camera.capture_sequence(outputs, 'jpeg', use_video_port=True)
+			camera.capture_sequence(outputs, 'jpeg', use_video_port=True,quality=self.quality)
 		return
 
 	#printing the set parameters
@@ -76,7 +81,3 @@ class picamConfig(object):
 		print("Image Width: ",self.imageWidth,"Image Height: ",self.imageHeight,"Image Frames: ",self.imageFrames)
 		print("Sensitivity: ",self.sensitivity,"Threshold: ",self.threshold)
 		return
-
-
-
-
