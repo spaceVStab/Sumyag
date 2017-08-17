@@ -23,6 +23,10 @@ sensitivity = 300
 #threshold is the threshold for each pixel changes to detect the motion
 threshold = 30
 
+#rotation of the angle of picamera
+#generally keep the rot angle 180
+imageRotAngle = 180       
+
 #testWidth is the width of the image which will be analyzed during the motion
 testWidth = 800
 
@@ -56,6 +60,7 @@ def main():
 	picam1.setTestParam(testWidth,testHeight,testFrames)
 	picam1.setImageParam(imageWidth,imageHeight,imageFrames)
 	picam1.setMotionParam(sensitivity,threshold)
+	picam1.setImageRotation(imageRotAngle)
 	picam1.printParam()
 	#creating an instance for threaded motion class PiVideoStream()
 	#Note: the class PiVideoStream() can be found from package imutils under picamera link: 
