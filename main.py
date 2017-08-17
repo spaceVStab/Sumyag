@@ -18,21 +18,21 @@ from fractions import Fraction
 #these are the pararmeter to be set
 
 #sensitivity is the threshold for number o fpixel that has changed
-sensitivity = 30
+sensitivity = 300
 
 #threshold is the threshold for each pixel changes to detect the motion
-threshold = 300
+threshold = 30
 
 #testWidth is the width of the image which will be analyzed during the motion
-testWidth = 608
+testWidth = 800
 
 #testHegth is the heigth of the image which will be analyzed during the motion
-testHeight = 480
+testHeight = 600
 
 #testWidth is the width of the image which will be captured during the motion
 imageWidth = 800
 
-#testHeigth is the height of the image which will be captured during the motion
+#testHeigth is the heigth of the image which will be captured during the motion
 imageHeight = 600
 
 #testFrames is defined for analyzing the motion
@@ -76,7 +76,6 @@ def main():
 
 		#passing our captures to detect for motion
 		motionStatus = motionFeed.motionStatus(capture1,capture2)
-		print("motion Status", motionStatus)
 		#m = checkForMotion(capture1, capture2)
 		if motionStatus is True:
 			print("Motion Found\n")
@@ -88,7 +87,7 @@ def main():
 
 			#takeImages() gives back images in jpeg format with paramters defined above
 			picam1.takeImages(no_Images)
-			print("\nImages saved in current directory\n")
+			print("Images saved \n")
 			return
 	return
 
@@ -97,4 +96,4 @@ if __name__ == "__main__":
 		#initiation
 		main()
 	finally:
-		print("\n\n*******\n\n Exiting Program")
+		print("*******\n Exiting Program")

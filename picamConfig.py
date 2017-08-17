@@ -7,6 +7,7 @@ Code for the main picamera function calling
 import picamera
 import threadPicam
 import time
+import os
 from picamera.array import PiRGBArray 
 
 class picamConfig(object):
@@ -48,10 +49,16 @@ class picamConfig(object):
 	#taking images after motion is attained as per set parameters
 	def takeImages(self, no_Images):
 		self.no_Images = no_Images
+		currDirec = os.getcwd()
+		dirName = 'photosCaptured'
+		if not os.path.isdir(dirName):
+			os.mkdir('photosCaptured')
+		imageDirec = currDirec + '/'+ dirName + '/'
+		os.chdir(imageDirec)
 		with picamera.PiCamera() as camera:
 			camera.resolution = (self.imageWidth, self.imageHeight)
 			camera.framerate = self.imageFrames
-			outputs = ["image_%d"%i for i in range(no_Images)]
+			outputs = ["image_%d.jpeg"%i for i in range(no_Images)]
 			camera.capture_sequence(outputs, 'jpeg', use_video_port=True)
 		return
 

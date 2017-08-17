@@ -1,11 +1,3 @@
-"""
-Sumyag
-Author:Manish Agrawal
-
-code is written for live video feed input
-based on threading
-"""
-
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
@@ -15,9 +7,10 @@ import picamConfig
 class PiVideoStream:
 	def __init__(self, picam1):
 		# initialize the camera and stream
-		testWidth, testHeight, testFrames = picam.getTestParam()
+		testWidth, testHeight, testFrames = picam1.getTestParam()
 		self.camera = PiCamera()
-		self.camera.resolution = (testWidth, testHeight)
+		resolution = (testWidth, testHeight)
+		self.camera.resolution = resolution
 		self.camera.framerate = testFrames
 		self.rawCapture = PiRGBArray(self.camera, size=resolution)
 		self.stream = self.camera.capture_continuous(self.rawCapture,
