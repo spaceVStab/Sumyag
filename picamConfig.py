@@ -34,6 +34,10 @@ class picamConfig(object):
 		self.threshold = threshold
 		return
 
+	def setImageRotation(self, angle):
+		self.rotAngle = angle
+		return
+
 	#returning the test parameters for other operations
 	def getTestParam(self):
 		return(self.testWidth, self.testHeight, self.testFrames)
@@ -45,6 +49,9 @@ class picamConfig(object):
 	#returning the test parameters for other operation
 	def getMotionParam(self):
 		return(self.sensitivity, self.threshold)
+
+	def getRotationAngle(self):
+		return(self.rotAngle)
 
 	#taking images after motion is attained as per set parameters
 	def takeImages(self, no_Images):
@@ -58,6 +65,7 @@ class picamConfig(object):
 		with picamera.PiCamera() as camera:
 			camera.resolution = (self.imageWidth, self.imageHeight)
 			camera.framerate = self.imageFrames
+			camera.rotation = self.rotAngle
 			outputs = ["image_%d.jpeg"%i for i in range(no_Images)]
 			camera.capture_sequence(outputs, 'jpeg', use_video_port=True)
 		return
