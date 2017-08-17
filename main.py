@@ -97,7 +97,6 @@ def main():
 			#takeImages() gives back images in jpeg format with paramters defined above
 			picam1.takeImages(no_Images)
 			print("Images saved \n")
-			return
 	return
 
 if __name__ == "__main__":

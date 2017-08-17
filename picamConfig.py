@@ -8,6 +8,7 @@ import picamera
 import threadPicam
 import time
 import os
+import datetime
 from picamera.array import PiRGBArray 
 
 class picamConfig(object):
@@ -22,10 +23,11 @@ class picamConfig(object):
 		return
 
 	#setting the image parameters as set in main.py
-	def setImageParam(self, imageWidth=600,imageHeight=480, imageFrames=30):
+	def setImageParam(self, imageWidth=600,imageHeight=480, imageFrames=30,vflip = True):
 		self.imageWidth = imageWidth
 		self.imageHeight = imageHeight
 		self.imageFrames = imageFrames
+		self.vflip = vflip
 		return
 
 	#setting the motion parameters as set in main.py
@@ -59,20 +61,32 @@ class picamConfig(object):
 		return(self.rotAngle)
 
 	#taking images after motion is attained as per set parameters
-	def takeImages(self, no_Images):
-		self.no_Images = no_Images
+
+	def setDirectory(self):
 		currDirec = os.getcwd()
 		dirName = 'photosCaptured'
 		if not os.path.isdir(dirName):
 			os.mkdir('photosCaptured')
-		imageDirec = currDirec + '/'+ dirName + '/'
-		os.chdir(imageDirec)
+		self.imageDirec = currDirec + '/'+ dirName + '/'
+		os.chdir(self.imageDirec)
+		return
+
+	def takeImages(self, no_Images):
+		time = (str(datetime.datetime.now()).split('.')[0]).split(' ')
+		time = '_'.join(time)
+		subDirec = time+'_imgfolder'
+		os.mkdir(subDirec)
+		os.chdir(os.getcwd()+'/'+subDirec+'/')
+		self.no_Images = no_Images
 		with picamera.PiCamera() as camera:
 			camera.resolution = (self.imageWidth, self.imageHeight)
 			camera.framerate = self.imageFrames
-			camera.rotation = self.rotAngle
-			outputs = ["image_%d.jpeg"%i for i in range(no_Images)]
+			#camera.rotation = self.rotAngle
+			camera.vflip = self.vflip
+			outputs = ['img{}_{}.jpeg'.format(i,(time)) for i in range(no_Images)]
+			#print((outputs))
 			camera.capture_sequence(outputs, 'jpeg', use_video_port=True,quality=self.quality)
+		os.chdir(self.imageDirec)
 		return
 
 	#printing the set parameters

@@ -29,8 +29,9 @@ class motionConfig(object):
 		            pixChanges += 1
 		        if pixChanges > self.sensitivity:
 		        	#if threshold and sensitivity are crossed beyond the limits motion is present
+		            print("pixchanges ",pixChanges,"\n")
 		            motionDetected = True
 		            return motionDetected
-		# print("\nmotion status  ",motionDetected)
-		# print("pixchanges ",pixChanges,"\n")
+		print("\nmotion status  ",motionDetected)
+		print("pixchanges ",pixChanges,"\n")
 		return motionDetected
